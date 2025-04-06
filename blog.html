@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <!-- Metaetiquetas SEO básicas -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog de HolaWeb - Artículos sobre diseño web, desarrollo, SEO, marketing digital y estrategias para mejorar tu presencia en línea.">
+    <meta name="keywords" content="blog diseño web, blog desarrollo web, blog SEO, blog marketing digital, analítica web">
+    
+    <!-- Metaetiquetas Open Graph -->
+    <meta property="og:title" content="Blog | HolaWeb - Diseño y Desarrollo Web Profesional">
+    <meta property="og:description" content="Descubre artículos sobre diseño web, desarrollo, SEO y marketing digital para impulsar tu negocio en línea.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://holaweb.com/blog.html">
+    <meta property="og:image" content="https://holaweb.com/assets/images/blog-og-image.jpg">
+    
+    <title>Blog | HolaWeb - Diseño y Desarrollo Web Profesional</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="assets/images/favicon.webp">
+    
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        primary: {
+                            600: '#2563eb',
+                        },
+                        secondary: {
+                            400: '#22d3ee',
+                        },
+                        dark: {
+                            900: '#111827',
+                            800: '#1f2937',
+                        },
+                        light: {
+                            100: '#f3f4f6',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Estilos personalizados -->
+    <style>
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #22d3ee;
+        }
+        .cursor-outline {
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(34, 211, 238, 0.5);
+        }
+        .cursor-dot, .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        body:hover .cursor-dot,
+        body:hover .cursor-outline {
+            opacity: 1;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #2563eb, #22d3ee);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .article-content h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+        .article-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #1f2937;
+        }
+        .article-content p {
+            margin-bottom: 1.25rem;
+            line-height: 1.7;
+            color: #4b5563;
+        }
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+        }
+        .article-content ul {
+            list-style-type: disc;
+        }
+        .article-content ol {
+            list-style-type: decimal;
+        }
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        .article-content a {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+        .article-content a:hover {
+            color: #1d4ed8;
+        }
+        .article-content blockquote {
+            border-left: 4px solid #22d3ee;
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #4b5563;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800 antialiased">
+    <!-- Cursor personalizado -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+    
+    <!-- Navbar -->
+    <header class="fixed w-full bg-white shadow-md z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-blue-600 font-serif">HolaWeb</a>
+            
+            <!-- Menú desktop -->
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">Inicio</a>
+                <a href="diseno-web.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">Diseño Web</a>
+                <a href="seo-analitica.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">SEO y Analítica</a>
+                <a href="marketing.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">Marketing</a>
+                <a href="blog.html" class="text-blue-600 hover:text-cyan-400 transition font-medium">Blog</a>
+                <a href="#contacto" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition font-medium">Contacto</a>
+            </div>
+            
+            <!-- Botón menú móvil -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-800 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </nav>
+        
+        <!-- Menú móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <div class="container mx-auto px-6 py-4 flex flex-col space-y-4">
+                <a href="index.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">Inicio</a>
+                <a href="diseno-web.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">Diseño Web</a>
+                <a href="seo-analitica.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">SEO y Analítica</a>
+                <a href="marketing.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">Marketing</a>
+                <a href="blog.html" class="text-blue-600 hover:text-cyan-400 transition font-medium">Blog</a>
+                <a href="#contacto" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition font-medium text-center">Contacto</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="relative pt-24 pb-16 md:pt-32 md:pb-24 bg-gray-900 text-white overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight">
+                    <span class="gradient-text">Blog</span> de HolaWeb
+                </h1>
+                <p class="text-lg md:text-xl text-gray-300 mb-8">
+                    Descubre artículos sobre diseño web, desarrollo, SEO y marketing digital para impulsar tu negocio en línea.
+                </p>
+                <div class="relative max-w-md mx-auto">
+                    <input type="text" placeholder="Buscar artículos..." class="w-full px-6 py-3 rounded-full bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                    <button class="absolute right-2 top-2 bg-cyan-400 text-gray-900 p-2 rounded-full hover:bg-cyan-500 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Elementos decorativos -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+            <div class="absolute top-20 left-20 w-64 h-64 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+            <div class="absolute top-60 right-20 w-64 h-64 bg-cyan-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+            <div class="absolute bottom-20 left-1/2 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        </div>
+    </section>
+    
+    <!-- Sección de categorías -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#" class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition">Todos</a>
+                <a href="#" class="px-6 py-2 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200 transition">Diseño Web</a>
+                <a href="#" class="px-6 py-2 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200 transition">Desarrollo</a>
+                <a href="#" class="px-6 py-2 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200 transition">SEO</a>
+                <a href="#" class="px-6 py-2 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200 transition">Marketing</a>
+                <a href="#" class="px-6 py-2 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200 transition">Analítica</a>
+                <a href="#" class="px-6 py-2 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200 transition">Tendencias</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección de artículos -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Artículo 1 -->
+                <article class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition group">
+                    <a href="blog/articulo-1.html">
+                        <img src="assets/images/blog-1.webp" alt="Tendencias diseño web 2023" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-gray-500 mb-2">
+                                <span>15 Mayo 2023</span>
+                                <span class="mx-2">•</span>
+                                <span>5 min lectura</span>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-gray-800 mb-3 group-hover:text-cyan-400 transition">
+                                Tendencias de diseño web que dominarán 2023
+                            </h3>
+                            <p class="text-gray-600 mb-4">
+                                Descubre las tendencias de diseño que están transformando la experiencia del usuario este año.
+                            </p>
+                            <div class="text-blue-600 hover:text-cyan-400 font-medium inline-flex items-center transition">
+                                Leer más
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                
+                <!-- Artículo 2 -->
+                <article class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition group">
+                    <a href="blog/articulo-2.html">
+                        <img src="assets/images/blog-2.webp" alt="SEO para principiantes" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-gray-500 mb-2">
+                                <span>28 Abril 2023</span>
+                                <span class="mx-2">•</span>
+                                <span>8 min lectura</span>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-gray-800 mb-3 group-hover:text-cyan-400 transition">
+                                Guía completa de SEO para principiantes
+                            </h3>
+                            <p class="text-gray-600 mb-4">
+                                Aprende los fundamentos del SEO y cómo mejorar el posicionamiento de tu sitio web en buscadores.
+                            </p>
+                            <div class="text-blue-600 hover:text-cyan-400 font-medium inline-flex items-center transition">
+                                Leer más
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                
+                <!-- Artículo 3 -->
+                <article class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition group">
+                    <a href="blog/articulo-3.html">
+                        <img src="assets/images/blog-3.webp" alt="Conversión de visitantes" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-gray-500 mb-2">
+                                <span>12 Abril 2023</span>
+                                <span class="mx-2">•</span>
+                                <span>6 min lectura</span>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-gray-800 mb-3 group-hover:text-cyan-400 transition">
+                                Cómo convertir visitantes en clientes
+                            </h3>
+                            <p class="text-gray-600 mb-4">
+                                Estrategias comprobadas para aumentar la tasa de conversión de tu sitio web y generar más ventas.
+                            </p>
+                            <div class="text-blue-600 hover:text-cyan-400 font-medium inline-flex items-center transition">
+                                Leer más
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                
+                <!-- Artículo 4 -->
+                <article class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition group">
+                    <a href="blog/articulo-4.html">
+                        <img src="assets/images/blog-4.webp" alt="Diseño mobile first" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-gray-500 mb-2">
+                                <span>5 Abril 2023</span>
+                                <span class="mx-2">•</span>
+                                <span>7 min lectura</span>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-gray-800 mb-3 group-hover:text-cyan-400 transition">
+                                Por qué el diseño Mobile First es esencial en 2023
+                            </h3>
+                            <p class="text-gray-600 mb-4">
+                                Con más del 60% del tráfico web proveniente de móviles, el diseño mobile first ya no es opcional.
+                            </p>
+                            <div class="text-blue-600 hover:text-cyan-400 font-medium inline-flex items-center transition">
+                                Leer más
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                
+                <!-- Artículo 5 -->
+                <article class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition group">
+                    <a href="blog/articulo-5.html">
+                        <img src="assets/images/blog-5.webp" alt="Herramientas desarrollo web" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-gray-500 mb-2">
+                                <span>22 Marzo 2023</span>
+                                <span class="mx-2">•</span>
+                                <span>10 min lectura</span>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-gray-800 mb-3 group-hover:text-cyan-400 transition">
+                                Las mejores herramientas para desarrolladores web en 2023
+                            </h3>
+                            <p class="text-gray-600 mb-4">
+                                Descubre las herramientas que están revolucionando el desarrollo web y cómo pueden mejorar tu flujo de trabajo.
+                            </p>
+                            <div class="text-blue-600 hover:text-cyan-400 font-medium inline-flex items-center transition">
+                                Leer más
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                
+                <!-- Artículo 6 -->
+                <article class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition group">
+                    <a href="blog/articulo-6.html">
+                        <img src="assets/images/blog-6.webp" alt="Estrategias marketing digital" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-gray-500 mb-2">
+                                <span>14 Marzo 2023</span>
+                                <span class="mx-2">•</span>
+                                <span>9 min lectura</span>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-gray-800 mb-3 group-hover:text-cyan-400 transition">
+                                Estrategias de marketing digital para pequeñas empresas
+                            </h3>
+                            <p class="text-gray-600 mb-4">
+                                Cómo las pequeñas empresas pueden competir con grandes marcas usando estrategias de marketing digital efectivas.
+                            </p>
+                            <div class="text-blue-600 hover:text-cyan-400 font-medium inline-flex items-center transition">
+                                Leer más
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+            </div>
+            
+            <!-- Paginación -->
+            <div class="flex justify-center mt-12">
+                <nav class="flex items-center space-x-2">
+                    <a href="#" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">1</a>
+                    <a href="#" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">2</a>
+                    <a href="#" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">3</a>
+                    <span class="px-4 py-2 text-gray-500">...</span>
+                    <a href="#" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">8</a>
+                    <a href="#" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección de suscripción -->
+    <section class="py-16 bg-blue-600 text-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6">
+                    Suscríbete a nuestro newsletter
+                </h2>
+                <p class="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
+                    Recibe consejos, tutoriales y las últimas noticias sobre diseño web, desarrollo y marketing digital directamente en tu bandeja de entrada.
+                </p>
+                <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                    <input type="email" placeholder="Tu email" class="px-6 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 text-gray-900 w-full">
+                    <button type="submit" class="bg-cyan-400 hover:bg-cyan-500 text-gray-900 px-6 py-3 rounded-md font-medium transition whitespace-nowrap">
+                        Suscribirme
+                    </button>
+                </form>
+                <p class="text-sm text-blue-200 mt-4">
+                    No compartiremos tu email. Puedes darte de baja en cualquier momento.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección de artículos populares -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-cyan-400 font-medium uppercase tracking-wider">Lo más leído</span>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-gray-800 mt-2 mb-4">
+                    Artículos populares
+                </h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Artículo popular 1 -->
+                <article class="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition group">
+                    <a href="blog/articulo-1.html">
+                        <div class="relative">
+                            <img src="assets/images/blog-1.webp" alt="Tendencias diseño web 2023" class="w-full h-48 object-cover" loading="lazy">
+                            <div class="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                Diseño Web
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-serif font-bold text-gray-800 mb-3 group-hover:text-cyan-400 transition">
+                                Tendencias de diseño web que dominarán 2023
+                            </h3>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <span>15 Mayo 2023</span>
+                                <span class="mx-2">•</span>
+                                <span>1,245 lecturas</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                
+                <!-- Artículo popular 2 -->
+                <article class="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition group">
+                    <a href="blog/articulo-2.html">
+                        <div class="relative">
+                            <img src="assets/images/blog-2.webp" alt="SEO para principiantes" class="w-full h-48 object-cover" loading="lazy">
+                            <div class="absolute top-4 left-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                SEO
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-serif font-bold text-gray-800 mb-3 group-hover:text-cyan-400 transition">
+                                Guía completa de SEO para principiantes
+                            </h3>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <span>28 Abril 2023</span>
+                                <span class="mx-2">•</span>
+                                <span>982 lecturas</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                
+                <!-- Artículo popular 3 -->
+                <article class="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition group">
+                    <a href="blog/articulo-3.html">
+                        <div class="relative">
+                            <img src="assets/images/blog-3.webp" alt="Conversión de visitantes" class="w-full h-48 object-cover" loading="lazy">
+                            <div class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                Marketing
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-serif font-bold text-gray-800 mb-3 group-hover:text-cyan-400 transition">
+                                Cómo convertir visitantes en clientes
+                            </h3>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <span>12 Abril 2023</span>
+                                <span class="mx-2">•</span>
+                                <span>876 lecturas</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-serif font-bold mb-4">HolaWeb</h3>
+                    <p class="text-gray-400 mb-4">
+                        Especialistas en diseño y desarrollo web, SEO y marketing digital. Transformamos ideas en experiencias digitales exitosas.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-cyan-400 transition">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-cyan-400 transition">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-cyan-400 transition">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-cyan-400 transition">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-medium mb-4">Enlaces rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-cyan-400 transition">Inicio</a></li>
+                        <li><a href="diseno-web.html" class="text-gray-400 hover:text-cyan-400 transition">Diseño Web</a></li>
+                        <li><a href="seo-analitica.html" class="text-gray-400 hover:text-cyan-400 transition">SEO y Analítica</a></li>
+                        <li><a href="marketing.html" class="text-gray-400 hover:text-cyan-400 transition">Marketing Digital</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-cyan-400 transition">Blog</a></li>
+                        <li><a href="#contacto" class="text-gray-400 hover:text-cyan-400 transition">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-medium mb-4">Categorías</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Diseño Web</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Desarrollo</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">SEO</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Marketing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Analítica</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 transition">Tendencias</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-medium mb-4">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">
+                        Suscríbete para recibir consejos y novedades sobre diseño web y marketing digital.
+                    </p>
+                    <form class="flex">
+                        <input type="email" placeholder="Tu email" class="px-4 py-2 bg-gray-700 text-white rounded-l-md focus:outline-none focus:ring-2 focus:ring-cyan-400 w-full">
+                        <button type="submit" class="bg-cyan-400 hover:bg-cyan-500 text-gray-900 px-4 py-2 rounded-r-md font-medium transition">
+                            Suscribir
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    © 2023 HolaWeb. Todos los derechos reservados.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 text-sm transition">Política de privacidad</a>
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 text-sm transition">Términos de servicio</a>
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 text-sm transition">Mapa del sitio</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/animations.js"></script>
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "HolaWeb Blog",
+        "url": "https://holaweb.com/blog.html",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://holaweb.com/blog.html?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <!-- Metaetiquetas SEO básicas -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HolaWeb - Diseño web profesional, desarrollo a medida y soluciones digitales para hacer crecer tu negocio online.">
+    <meta name="keywords" content="diseño web, desarrollo web, SEO, marketing digital, analítica web">
+    
+    <!-- Metaetiquetas Open Graph -->
+    <meta property="og:title" content="HolaWeb | Diseño y Desarrollo Web Profesional">
+    <meta property="og:description" content="Creamos sitios web modernos y efectivos que impulsan tu negocio en línea.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://holaweb.com">
+    <meta property="og:image" content="https://holaweb.com/assets/images/og-image.jpg">
+    
+    <title>HolaWeb | Diseño y Desarrollo Web Profesional</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="assets/images/favicon.webp">
+    
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        primary: {
+                            600: '#2563eb',
+                        },
+                        secondary: {
+                            400: '#22d3ee',
+                        },
+                        dark: {
+                            900: '#111827',
+                            800: '#1f2937',
+                        },
+                        light: {
+                            100: '#f3f4f6',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    
+    <!-- Estilos personalizados -->
+    <style>
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #22d3ee;
+        }
+        .cursor-outline {
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(34, 211, 238, 0.5);
+        }
+        .cursor-dot, .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        body:hover .cursor-dot,
+        body:hover .cursor-outline {
+            opacity: 1;
+        }
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        .responsive-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #2563eb, #22d3ee);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800 antialiased">
+    <!-- Cursor personalizado -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+    
+    <!-- Navbar -->
+    <header class="fixed w-full bg-white shadow-md z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-blue-600 font-serif">HolaWeb</a>
+            
+            <!-- Menú desktop -->
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">Inicio</a>
+                <a href="diseno-web.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">Diseño Web</a>
+                <a href="seo-analitica.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">SEO y Analítica</a>
+                <a href="marketing.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">Marketing</a>
+                <a href="blog.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">Blog</a>
+                <a href="#contacto" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition font-medium">Contacto</a>
+            </div>
+            
+            <!-- Botón menú móvil -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-800 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </nav>
+        
+        <!-- Menú móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <div class="container mx-auto px-6 py-4 flex flex-col space-y-4">
+                <a href="index.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">Inicio</a>
+                <a href="diseno-web.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">Diseño Web</a>
+                <a href="seo-analitica.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">SEO y Analítica</a>
+                <a href="marketing.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">Marketing</a>
+                <a href="blog.html" class="text-gray-800 hover:text-cyan-400 transition font-medium">Blog</a>
+                <a href="#contacto" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition font-medium text-center">Contacto</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section id="hero" class="relative pt-24 pb-16 md:pt-32 md:pb-24 bg-gray-900 text-white overflow-hidden">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-12 md:mb-0 z-10">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight">
+                    <span class="gradient-text">Diseño Web</span> que impulsa tu negocio
+                </h1>
+                <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-lg">
+                    Creamos experiencias digitales únicas que convierten visitantes en clientes y marcas en líderes.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#contacto" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg font-medium transition transform hover:scale-105 text-center">
+                        Comencemos
+                    </a>
+                    <a href="#servicios" class="border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-gray-900 px-8 py-3 rounded-md text-lg font-medium transition transform hover:scale-105 text-center">
+                        Nuestros servicios
+                    </a>
+                </div>
+            </div>
+            
+            <div class="md:w-1/2 z-10">
+                <div class="relative">
+                    <img src="assets/images/hero-image.webp" alt="Equipo de HolaWeb trabajando en diseño web" class="rounded-lg shadow-2xl transform transition duration-500 hover:scale-105" loading="lazy">
+                    <div class="absolute -bottom-6 -right-6 bg-cyan-400 w-24 h-24 rounded-full flex items-center justify-center text-gray-900 font-bold text-xl">
+                        +150
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Elementos decorativos -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+            <div class="absolute top-20 left-20 w-64 h-64 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+            <div class="absolute top-60 right-20 w-64 h-64 bg-cyan-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+            <div class="absolute bottom-20 left-1/2 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        </div>
+    </section>
+    
+    <!-- Sección de clientes -->
+    <section id="clientes" class="py-12 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-2xl md:text-3xl font-serif font-bold text-center mb-12 text-gray-800">
+                Confían en nosotros
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center">
+                <img src="assets/images/client-1.webp" alt="Logo cliente 1" class="w-full h-auto opacity-70 hover:opacity-100 transition filter grayscale hover:grayscale-0" loading="lazy">
+                <img src="assets/images/client-2.webp" alt="Logo cliente 2" class="w-full h-auto opacity-70 hover:opacity-100 transition filter grayscale hover:grayscale-0" loading="lazy">
+                <img src="assets/images/client-3.webp" alt="Logo cliente 3" class="w-full h-auto opacity-70 hover:opacity-100 transition filter grayscale hover:grayscale-0" loading="lazy">
+                <img src="assets/images/client-4.webp" alt="Logo cliente 4" class="w-full h-auto opacity-70 hover:opacity-100 transition filter grayscale hover:grayscale-0" loading="lazy">
+                <img src="assets/images/client-5.webp" alt="Logo cliente 5" class="w-full h-auto opacity-70 hover:opacity-100 transition filter grayscale hover:grayscale-0" loading="lazy">
+                <img src="assets/images/client-6.webp" alt="Logo cliente 6" class="w-full h-auto opacity-70 hover:opacity-100 transition filter grayscale hover:grayscale-0" loading="lazy">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección de servicios -->
+    <section id="servicios" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-cyan-400 font-medium uppercase tracking-wider">Nuestros servicios</span>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-gray-800 mt-2 mb-4">
+                    Soluciones digitales a medida
+                </h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Ofrecemos un enfoque integral para tu presencia en línea, desde el diseño hasta la estrategia digital.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Servicio 1 -->
+                <div class="bg-gray-50 rounded-xl p-8 shadow-lg hover:shadow-xl transition group">
+                    <div class="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mb-6 group-hover:bg-cyan-400 transition">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold text-gray-800 mb-3">Diseño Web Personalizado</h3>
+                    <p class="text-gray-600 mb-4">
+                        Creación de sitios web únicos y responsivos que reflejan la esencia de tu marca y mejoran la experiencia del usuario.
+                    </p>
+                    <a href="diseno-web.html" class="text-blue-600 hover:text-cyan-400 font-medium inline-flex items-center transition">
+                        Saber más
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </a>
+                </div>
+                
+                <!-- Servicio 2 -->
+                <div class="bg-gray-50 rounded-xl p-8 shadow-lg hover:shadow-xl transition group">
+                    <div class="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mb-6 group-hover:bg-cyan-400 transition">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold text-gray-800 mb-3">SEO y Analítica Web</h3>
+                    <p class="text-gray-600 mb-4">
+                        Optimización para motores de búsqueda y análisis de datos para mejorar tu visibilidad y tomar decisiones basadas en datos.
+                    </p>
+                    <a href="seo-analitica.html" class="text-blue-600 hover:text-cyan-400 font-medium inline-flex items-center transition">
+                        Saber más
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </a>
+                </div>
+                
+                <!-- Servicio 3 -->
+                <div class="bg-gray-50 rounded-xl p-8 shadow-lg hover:shadow-xl transition group">
+                    <div class="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mb-6 group-hover:bg-cyan-400 transition">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold text-gray-800 mb-3">Marketing Digital</h3>
+                    <p class="text-gray-600 mb-4">
+                        Estrategias de marketing online para aumentar tu alcance, generar leads y convertir visitantes en clientes.
+                    </p>
+                    <a href="marketing.html" class="text-blue-600 hover:text-cyan-400 font-medium inline-flex items-center transition">
+                        Saber más
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección de estadísticas -->
+    <section class="py-16 bg-gray-900 text-white">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-8">
+                    <div class="text-5xl font-bold mb-2 text-cyan-400 counter" data-target="150">0</div>
+                    <div class="text-xl font-medium">Clientes satisfechos</div>
+                </div>
+                <div class="p-8">
+                    <div class="text-5xl font-bold mb-2 text-cyan-400 counter" data-target="98">0</div>
+                    <div class="text-xl font-medium">Proyectos exitosos</div>
+                </div>
+                <div class="p-8">
+                    <div class="text-5xl font-bold mb-2 text-cyan-400 counter" data-target="12">0</div>
+                    <div class="text-xl font-medium">Premios ganados</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección de proceso de trabajo -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-cyan-400 font-medium uppercase tracking-wider">Nuestro proceso</span>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-gray-800 mt-2 mb-4">
+                    Cómo trabajamos
+                </h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Un enfoque metódico que garantiza resultados excepcionales en cada proyecto.
+                </p>
+            </div>
+            
+            <div class="relative">
+                <!-- Línea de tiempo -->
+                <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gray-200"></div>
+                
+                <!-- Paso 1 -->
+                <div class="flex flex-col md:flex-row items-center mb-12">
+                    <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0 md:text-right">
+                        <h3 class="text-2xl font-serif font-bold text-gray-800 mb-2">Descubrimiento</h3>
+                        <p class="text-gray-600">
+                            Analizamos tus necesidades, objetivos y audiencia para crear una estrategia personalizada.
+                        </p>
+                    </div>
+                    <div class="md:w-1/2 md:pl-12 flex justify-center md:justify-start">
+                        <div class="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                            1
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Paso 2 -->
+                <div class="flex flex-col md:flex-row items-center mb-12">
+                    <div class="md:w-1/2 md:pl-12 order-1 md:order-2 mb-8 md:mb-0">
+                        <h3 class="text-2xl font-serif font-bold text-gray-800 mb-2">Diseño</h3>
+                        <p class="text-gray-600">
+                            Creamos prototipos y diseños que reflejan tu marca y ofrecen una experiencia de usuario excepcional.
+                        </p>
+                    </div>
+                    <div class="md:w-1/2 md:pr-12 order-2 md:order-1 flex justify-center md:justify-end">
+                        <div class="w-16 h-16 rounded-full bg-cyan-400 flex items-center justify-center text-gray-900 font-bold text-xl shadow-lg">
+                            2
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Paso 3 -->
+                <div class="flex flex-col md:flex-row items-center mb-12">
+                    <div class="md:w-1/2 md:pr-12 mb-8 md:mb-0 md:text-right">
+                        <h3 class="text-2xl font-serif font-bold text-gray-800 mb-2">Desarrollo</h3>
+                        <p class="text-gray-600">
+                            Implementamos las mejores tecnologías para construir un sitio web rápido, seguro y escalable.
+                        </p>
+                    </div>
+                    <div class="md:w-1/2 md:pl-12 flex justify-center md:justify-start">
+                        <div class="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                            3
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Paso 4 -->
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 md:pl-12 order-1 md:order-2 mb-8 md:mb-0">
+                        <h3 class="text-2xl font-serif font-bold text-gray-800 mb-2">Lanzamiento</h3>
+                        <p class="text-gray-600">
+                            Desplegamos tu proyecto y monitoreamos su rendimiento para garantizar el éxito continuo.
+                        </p>
+                    </div>
+                    <div class="md:w-1/2 md:pr-12 order-2 md:order-1 flex justify-center md:justify-end">
+                        <div class="w-16 h-16 rounded-full bg-cyan-400 flex items-center justify-center text-gray-900 font-bold text-xl shadow-lg">
+                            4
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección de testimonios -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-cyan-400 font-medium uppercase tracking-wider">Testimonios</span>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-gray-800 mt-2 mb-4">
+                    Lo que dicen nuestros clientes
+                </h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonio 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        "HolaWeb transformó completamente nuestra presencia en línea. Desde el rediseño de nuestro sitio web hasta la estrategia de SEO, los resultados han sido excepcionales."
+                    </p>
+                    <div class="flex items-center">
+                        <img src="assets/images/testimonial-1.webp" alt="Cliente satisfecho" class="w-12 h-12 rounded-full mr-4" loading="lazy">
+                        <div>
+                            <h4 class="font-bold text-gray-800">María González</h4>
+                            <p class="text-gray-600 text-sm">Directora de Marketing, EmpresaX</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonio 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        "El equipo de HolaWeb entendió perfectamente nuestra visión y la llevó a un nivel superior. Nuestro nuevo sitio web ha aumentado las conversiones en un 40%."
+                    </p>
+                    <div class="flex items-center">
+                        <img src="assets/images/testimonial-2.webp" alt="Cliente satisfecho" class="w-12 h-12 rounded-full mr-4" loading="lazy">
+                        <div>
+                            <h4 class="font-bold text-gray-800">Carlos Mendoza</h4>
+                            <p class="text-gray-600 text-sm">CEO, StartupY</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonio 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        "Como pequeña empresa, necesitábamos un sitio web profesional sin gastar una fortuna. HolaWeb nos dio exactamente eso, con un servicio personalizado y atención al detalle."
+                    </p>
+                    <div class="flex items-center">
+                        <img src="assets/images/testimonial-3.webp" alt="Cliente satisfecho" class="w-12 h-12 rounded-full mr-4" loading="lazy">
+                        <div>
+                            <h4 class="font-bold text-gray-800">Laura Jiménez</h4>
+                            <p class="text-gray-600 text-sm">Propietaria, TiendaZ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección de blog destacado -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-cyan-400 font-medium uppercase tracking-wider">Blog</span>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-gray-800 mt-2 mb-4">
+                    Artículos recientes
+                </h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Mantente actualizado con las últimas tendencias en diseño web y marketing digital.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Artículo 1 -->
+                <article class="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition group">
+                    <a href="blog/articulo-1.html">
+                        <img src="assets/images/blog-1.webp" alt="Tendencias diseño web 2023" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-gray-500 mb-2">
+                                <span>15 Mayo 2023</span>
+                                <span class="mx-2">•</span>
+                                <span>5 min lectura</span>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-gray-800 mb-3 group-hover:text-cyan-400 transition">
+                                Tendencias de diseño web que dominarán 2023
+                            </h3>
+                            <p class="text-gray-600 mb-4">
+                                Descubre las tendencias de diseño que están transformando la experiencia del usuario este año.
+                            </p>
+                            <div class="text-blue-600 hover:text-cyan-400 font-medium inline-flex items-center transition">
+                                Leer más
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                
+                <!-- Artículo 2 -->
+                <article class="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition group">
+                    <a href="blog/articulo-2.html">
+                        <img src="assets/images/blog-2.webp" alt="SEO para principiantes" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-gray-500 mb-2">
+                                <span>28 Abril 2023</span>
+                                <span class="mx-2">•</span>
+                                <span>8 min lectura</span>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-gray-800 mb-3 group-hover:text-cyan-400 transition">
+                                Guía completa de SEO para principiantes
+                            </h3>
+                            <p class="text-gray-600 mb-4">
+                                Aprende los fundamentos del SEO y cómo mejorar el posicionamiento de tu sitio web en buscadores.
+                            </p>
+                            <div class="text-blue-600 hover:text-cyan-400 font-medium inline-flex items-center transition">
+                                Leer más
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                
+                <!-- Artículo 3 -->
+                <article class="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition group">
+                    <a href="blog/articulo-3.html">
+                        <img src="assets/images/blog-3.webp" alt="Conversión de visitantes" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-gray-500 mb-2">
+                                <span>12 Abril 2023</span>
+                                <span class="mx-2">•</span>
+                                <span>6 min lectura</span>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-gray-800 mb-3 group-hover:text-cyan-400 transition">
+                                Cómo convertir visitantes en clientes
+                            </h3>
+                            <p class="text-gray-600 mb-4">
+                                Estrategias comprobadas para aumentar la tasa de conversión de tu sitio web y generar más ventas.
+                            </p>
+                            <div class="text-blue-600 hover:text-cyan-400 font-medium inline-flex items-center transition">
+                                Leer más
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="blog.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md text-lg font-medium transition transform hover:scale-105">
+                    Ver todos los artículos
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección de contacto -->
+    <section id="contacto" class="py-16 bg-gray-900 text-white">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6">
+                        <span class="gradient-text">Hablemos</span> de tu proyecto
+                    </h2>
+                    <p class="text-lg text-gray-300 mb-8 max-w-lg">
+                        ¿Listo para llevar tu presencia en línea al siguiente nivel? Completa el formulario y nos pondremos en contacto contigo en menos de 24 horas.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium">Teléfono</h4>
+                                <p class="text-gray-400">+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium">Email</h4>
+                                <p class="text-gray-400">hola@holaweb.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-lg font-medium">Oficina</h4>
+                                <p class="text-gray-400">Av. Principal 123, Ciudad, País</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-800 rounded-xl p-8 shadow-lg">
+                    <form id="contact-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Nombre completo</label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition">
+                            <div class="text-red-400 text-sm mt-1 hidden" id="name-error">Por favor ingresa tu nombre</div>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Correo electrónico</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition">
+                            <div class="text-red-400 text-sm mt-1 hidden" id="email-error">Por favor ingresa un email válido</div>
+                        </div>
+                        
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-300 mb-1">Teléfono (opcional)</label>
+                            <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition">
+                        </div>
+                        
+                        <div>
+                            <label for="service" class="block text-sm font-medium text-gray-300 mb-1">Servicio de interés</label>
+                            <select id="service" name="service" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition">
+                                <option value="">Selecciona una opción</option>
+                                <option value="diseno-web">Diseño Web</option>
+                                <option value="seo">SEO y Analítica</option>
+                                <option value="marketing">Marketing Digital</option>
+                                <option value="otros">Otros servicios</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Mensaje</label>
+                            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition"></textarea>
+                            <div class="text-red-400 text-sm mt-1 hidden" id="message-error">Por favor ingresa tu mensaje</div>
+                        </div>
+                        
+                        <div>
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md text-lg font-medium transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800">
+                                Enviar mensaje
+                            </button>
+                        </div>
+                        
+                        <div id="form-success" class="hidden p-4 bg-green-100 text-green-700 rounded-md">
+                            ¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-serif font-bold mb-4">HolaWeb</h3>
+                    <p class="text-gray-400 mb-4">
+                        Especialistas en diseño y desarrollo web, SEO y marketing digital. Transformamos ideas en experiencias digitales exitosas.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-cyan-400 transition">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-cyan-400 transition">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-cyan-400 transition">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-cyan-400 transition">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-medium mb-4">Enlaces rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-cyan-400 transition">Inicio</a></li>
+                        <li><a href="diseno-web.html" class="text-gray-400 hover:text-cyan-400 transition">Diseño Web</a></li>
+                        <li><a href="seo-analitica.html" class="text-gray-400 hover:text-cyan-400 transition">SEO y Analítica</a></li>
+                        <li><a href="marketing.html" class="text-gray-400 hover:text-cyan-400 transition">Marketing Digital</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-cyan-400 transition">Blog</a></li>
+                        <li><a href="#contacto" class="text-gray-400 hover:text-cyan-400 transition">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-medium mb-4">Servicios</h3>
+                    <ul class="space-y-2">
+                        <li><a href="diseno-web.html" class="text-gray-400 hover:text-cyan-400 transition">Diseño Web Personalizado</a></li>
+                        <li><a href="diseno-web.html" class="text-gray-400 hover:text-cyan-400 transition">Tiendas Online</a></li>
+                        <li><a href="seo-analitica.html" class="text-gray-400 hover:text-cyan-400 transition">Optimización SEO</a></li>
+                        <li><a href="seo-analitica.html" class="text-gray-400 hover:text-cyan-400 transition">Analítica Web</a></li>
+                        <li><a href="marketing.html" class="text-gray-400 hover:text-cyan-400 transition">Campañas de Marketing</a></li>
+                        <li><a href="marketing.html" class="text-gray-400 hover:text-cyan-400 transition">Branding Digital</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-medium mb-4">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">
+                        Suscríbete para recibir consejos y novedades sobre diseño web y marketing digital.
+                    </p>
+                    <form class="flex">
+                        <input type="email" placeholder="Tu email" class="px-4 py-2 bg-gray-700 text-white rounded-l-md focus:outline-none focus:ring-2 focus:ring-cyan-400 w-full">
+                        <button type="submit" class="bg-cyan-400 hover:bg-cyan-500 text-gray-900 px-4 py-2 rounded-r-md font-medium transition">
+                            Suscribir
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    © 2023 HolaWeb. Todos los derechos reservados.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 text-sm transition">Política de privacidad</a>
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 text-sm transition">Términos de servicio</a>
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 text-sm transition">Mapa del sitio</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/form.js"></script>
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "HolaWeb",
+        "image": "https://holaweb.com/assets/images/logo.webp",
+        "@id": "https://holaweb.com",
+        "url": "https://holaweb.com",
+        "telephone": "+15551234567",
+        "priceRange": "$$",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Av. Principal 123",
+            "addressLocality": "Ciudad",
+            "addressRegion": "Región",
+            "postalCode": "12345",
+            "addressCountry": "País"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 40.7128,
+            "longitude": -74.0060
+        },
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday"
+            ],
+            "opens": "09:00",
+            "closes": "18:00"
+        },
+        "sameAs": [
+            "https://www.facebook.com/holaweb",
+            "https://www.instagram.com/holaweb",
+            "https://www.twitter.com/holaweb",
+            "https://www.linkedin.com/company/holaweb"
+        ]
+    }
+    </script>
+</body>
+</html>
